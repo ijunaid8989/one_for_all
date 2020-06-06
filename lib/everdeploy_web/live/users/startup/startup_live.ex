@@ -1,4 +1,4 @@
-defmodule EverdeployWeb.PageLive do
+defmodule EverdeployWeb.StartupLive do
   use EverdeployWeb, :live_view
 
   @impl true
