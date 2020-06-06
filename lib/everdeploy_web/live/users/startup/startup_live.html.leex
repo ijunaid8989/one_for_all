@@ -1,6 +1,6 @@
 <section class="section">
   <div class="container">
-    <div class="columns is-centered">
+    <div class="columns is-flex is-vcentered is-centered">
       <div class="column is-one-quarter">
         <div class="card">
           <header class="card-header">
@@ -15,35 +15,37 @@
           </header>
           <div class="card-content">
             <div class="content">
-              <div class="field">
-                <p class="control has-icons-left has-icons-right">
-                  <input class="input" type="email" placeholder="Email">
-                  <span class="icon is-small is-left">
-                    <i class="fas fa-envelope"></i>
-                  </span>
-                  <span class="icon is-small is-right">
-                    <i class="fas fa-check"></i>
-                  </span>
-                </p>
-              </div>
-              <div class="field">
-                <p class="control has-icons-left">
-                  <input class="input" type="password" placeholder="Password">
-                  <span class="icon is-small is-left">
-                    <i class="fas fa-lock"></i>
-                  </span>
-                </p>
-              </div>
+              <form phx-change="validate">
+                <div class="field">
+                  <p class="control has-icons-left has-icons-right">
+                    <input class="input" type="email" placeholder="Email" name="user[email]" phx-debounce="1000">
+                    <span class="icon is-small is-left">
+                      <i class="fas fa-envelope"></i>
+                    </span>
+                    <span class="icon is-small is-right">
+                      <i class="fas fa-check"></i>
+                    </span>
+                  </p>
+                </div>
+                <div class="field">
+                  <p class="control has-icons-left">
+                    <input class="input" type="password" placeholder="Password" name="user[password]" phx-debounce="1000">
+                    <span class="icon is-small is-left">
+                      <i class="fas fa-lock"></i>
+                    </span>
+                  </p>
+                </div>
+              </form>
             </div>
           </div>
           <footer class="card-footer">
-            <div class="card-footer-button is-info">
+            <div class="card-footer-button is-info" phx-click="save">
               <span class="icon">
                 <i class="fas fa-sign-in-alt"></i>
               </span>
               <span>Sign In</span>
             </div>
-            <div class="card-footer-button is-primary">
+            <div class="card-footer-button is-primary" phx-click="save">
               <span class="icon">
                 <i class="fas fa-cash-register"></i>
               </span>
