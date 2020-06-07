@@ -5,7 +5,14 @@ defmodule EverdeployWeb.UsersController do
   alias Everdeploy.Accounts.User
 
   def index(conn, _params) do
-    render(conn, "index.html", changeset: Accounts.change_user(%User{}))
+    with %User{} <- get_session(conn, :current_user) do
+      conn
+      |> put_flash(:info, "Welcome.")
+      |> redirect(to: "/v1/dashboard")
+    else
+      _ ->
+        render(conn, "index.html", changeset: Accounts.change_user(%User{}))
+    end
   end
 
   def create(conn, %{"user" => user_params} = params) do
@@ -15,7 +22,7 @@ defmodule EverdeployWeb.UsersController do
           conn
           |> put_flash(:info, "Welcome.")
           |> put_session(:current_user, user)
-          |> redirect(to: "/")
+          |> redirect(to: "/v1/dashboard")
 
         {:error, %Ecto.Changeset{} = changeset} ->
           render(conn, "index.html", changeset: changeset)
@@ -35,7 +42,7 @@ defmodule EverdeployWeb.UsersController do
                 conn
                 |> put_flash(:info, "Welcome.")
                 |> put_session(:current_user, user)
-                |> redirect(to: "/")
+                |> redirect(to: "/v1/dashboard")
             end
         end
     end
