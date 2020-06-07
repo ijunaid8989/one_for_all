@@ -4,3 +4,7 @@
 
 @charset "utf-8";
 @import "~bulma/bulma";
+
+.card-footer button {
+  border: none;
+}

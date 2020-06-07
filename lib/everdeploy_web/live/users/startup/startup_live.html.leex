@@ -14,44 +14,53 @@
             </a>
           </header>
           <div class="card-content">
-            <div class="content">
-              <form phx-change="validate">
+            <%= f = form_for @changeset,
+                  "/v1/startup",
+                  [
+                    phx_change: :validate,
+                    phx_submit: :save
+                  ]
+                %>
+              <div class="content">
                 <div class="field">
                   <p class="control has-icons-left has-icons-right">
-                    <input class="input" type="email" placeholder="Email" name="user[email]" phx-debounce="1000">
+                    <%= text_input f, :email, value: input_value(f, :email), class: "input" %>
                     <span class="icon is-small is-left">
                       <i class="fas fa-envelope"></i>
                     </span>
-                    <span class="icon is-small is-right">
-                      <i class="fas fa-check"></i>
-                    </span>
+                  </p>
+                  <p class="help is-danger">
+                    <%= error_tag f, :email %>
                   </p>
                 </div>
                 <div class="field">
                   <p class="control has-icons-left">
-                    <input class="input" type="password" placeholder="Password" name="user[password]" phx-debounce="1000">
+                    <%= password_input f, :password, value: input_value(f, :password), class: "input" %>
                     <span class="icon is-small is-left">
                       <i class="fas fa-lock"></i>
                     </span>
                   </p>
+                  <p class="help is-danger">
+                    <%= error_tag f, :password %>
+                  </p>
                 </div>
-              </form>
+              </div>
             </div>
-          </div>
-          <footer class="card-footer">
-            <div class="card-footer-button is-info" phx-click="save">
-              <span class="icon">
-                <i class="fas fa-sign-in-alt"></i>
-              </span>
-              <span>Sign In</span>
-            </div>
-            <div class="card-footer-button is-primary" phx-click="save">
-              <span class="icon">
-                <i class="fas fa-cash-register"></i>
-              </span>
-              <span>Sign Up</span>
-            </div>
-          </footer>
+            <footer class="card-footer">
+              <button class="card-footer-button is-info" type="submit">
+                <span class="icon">
+                  <i class="fas fa-sign-in-alt"></i>
+                </span>
+                <span>Sign In</span>
+              </button>
+              <button class="card-footer-button is-primary" type="submit">
+                <span class="icon">
+                  <i class="fas fa-cash-register"></i>
+                </span>
+                <span>Sign Up</span>
+              </button>
+            </footer>
+          </form>
         </div>
       </div>
     </div>
