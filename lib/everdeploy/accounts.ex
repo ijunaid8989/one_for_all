@@ -8,16 +8,12 @@ defmodule Everdeploy.Accounts do
 
   alias Everdeploy.Accounts.User
 
-  def list_users do
-    Repo.all(User)
-  end
-
   def get_user!(id), do: Repo.get!(User, id)
 
   def create_user(attrs \\ %{}) do
     %User{}
     |> User.changeset(attrs)
-    |> Repo.insert()
+    |> Repo.insert_or_update()
   end
 
   def update_user(%User{} = user, attrs) do
@@ -32,5 +28,17 @@ defmodule Everdeploy.Accounts do
 
   def change_user(%User{} = user, attrs \\ %{}) do
     User.changeset(user, attrs)
+  end
+
+  def check_user_creds(attrs) do
+    Repo.get_by(User, email: attrs["email"])
+    |> case do
+      nil -> "not_found"
+      user -> password_match?(attrs["password"], user)
+    end
+  end
+
+  defp password_match?(password, user) do
+    Bcrypt.verify_pass(password, user.password)
   end
 end

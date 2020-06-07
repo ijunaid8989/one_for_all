@@ -12,6 +12,19 @@ defmodule Everdeploy.Accounts.User do
     timestamps()
   end
 
+  defp encrypt_password(changeset) do
+    case changeset do
+      %Ecto.Changeset{valid?: true, changes: %{password: password}} ->
+        put_change(changeset, :password, hash_password(password))
+      _ ->
+        changeset
+    end
+  end
+
+  defp hash_password(password) do
+    Bcrypt.hash_pwd_salt(password, [12, true])
+  end
+
   @doc false
   def changeset(user, attrs) do
     user
@@ -22,5 +35,6 @@ defmodule Everdeploy.Accounts.User do
     |> update_change(:email, &String.downcase/1)
     |> validate_format(:email, @email_regex, [message: "Email format isn't valid!"])
     |> validate_length(:password, [min: 6, message: "Password should be at least 6 character(s)."])
+    |> encrypt_password
   end
 end

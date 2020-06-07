@@ -14,17 +14,11 @@
             </a>
           </header>
           <div class="card-content">
-            <%= f = form_for @changeset,
-                  "/v1/startup",
-                  [
-                    phx_change: :validate,
-                    phx_submit: :save
-                  ]
-                %>
+            <%= form_for @changeset, "/startup", fn f -> %>
               <div class="content">
                 <div class="field">
                   <p class="control has-icons-left has-icons-right">
-                    <%= text_input f, :email, value: input_value(f, :email), class: "input" %>
+                    <%= text_input f, :email, class: "input" %>
                     <span class="icon is-small is-left">
                       <i class="fas fa-envelope"></i>
                     </span>
@@ -35,7 +29,7 @@
                 </div>
                 <div class="field">
                   <p class="control has-icons-left">
-                    <%= password_input f, :password, value: input_value(f, :password), class: "input" %>
+                    <%= password_input f, :password, class: "input" %>
                     <span class="icon is-small is-left">
                       <i class="fas fa-lock"></i>
                     </span>
@@ -47,20 +41,20 @@
               </div>
             </div>
             <footer class="card-footer">
-              <button class="card-footer-button is-info" type="submit">
+              <button class="card-footer-button is-info" name="method" type="submit" value="signin">
                 <span class="icon">
                   <i class="fas fa-sign-in-alt"></i>
                 </span>
                 <span>Sign In</span>
               </button>
-              <button class="card-footer-button is-primary" type="submit">
+              <button class="card-footer-button is-primary" name="method" type="submit" value="signup">
                 <span class="icon">
                   <i class="fas fa-cash-register"></i>
                 </span>
                 <span>Sign Up</span>
               </button>
             </footer>
-          </form>
+          <% end %>
         </div>
       </div>
     </div>

@@ -18,7 +18,10 @@ defmodule EverdeployWeb.Router do
     pipe_through :browser
 
     live "/", PageLive, :index
-    live "/startup", StartupLive, :index
+    get "/startup", UsersController, :index
+    post "/startup", UsersController, :create
+    # live "/startup", StartupLive, :index
+    # live "/startin", StartinLive, :index
   end
 
   # Other scopes may use custom stacks.

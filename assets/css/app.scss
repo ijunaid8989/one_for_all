@@ -8,3 +8,8 @@
 .card-footer button {
   border: none;
 }
+
+.error-flash, .info-flash {
+  width: calc(100% - 70%);
+  margin: 0 auto;
+}
