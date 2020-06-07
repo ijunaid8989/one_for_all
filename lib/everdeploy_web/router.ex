@@ -23,6 +23,7 @@ defmodule EverdeployWeb.Router do
 
     get "/startup", UsersController, :index
     post "/startup", UsersController, :create
+    get "/signout", UsersController, :delete
   end
 
   scope "/v1", EverdeployWeb do

@@ -13,3 +13,16 @@
   width: calc(100% - 70%);
   margin: 0 auto;
 }
+
+.navbar-item {
+  &.has-dropdown {
+    .navbar-dropdown {
+      display: none;
+    }
+    &.is-active {
+      .navbar-dropdown {
+        display: block;
+      }
+     }
+   }
+}

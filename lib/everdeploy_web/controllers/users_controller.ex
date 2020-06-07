@@ -46,6 +46,12 @@ defmodule EverdeployWeb.UsersController do
             end
         end
     end
+  end
 
+  def delete(conn, _) do
+    conn
+    |> clear_session
+    |> put_flash(:info, 'Come back again when you want to deploy, okay?')
+    |> redirect(to: "/startup")
   end
 end
