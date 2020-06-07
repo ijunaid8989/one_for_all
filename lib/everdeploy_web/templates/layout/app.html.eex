@@ -1,5 +1,32 @@
-<main role="main" class="container">
-  <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-  <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+<%
+  info = get_flash(@conn, :info)
+  error = get_flash(@conn, :error)
+%>
+<div class="container">
+  <%= if info do %>
+    <article class="message is-info info-flash">
+      <div class="message-header">
+        <p>Info</p>
+        <button class="delete" aria-label="delete"></button>
+      </div>
+      <div class="message-body">
+        <%= info %>
+      </div>
+    </article>
+  <% end %>
+
+
+  <%= if error do %>
+    <article class="message is-danger error-flash">
+      <div class="message-header">
+        <p>Error</p>
+        <button class="delete" aria-label="delete"></button>
+      </div>
+      <div class="message-body">
+        <%= error %>
+      </div>
+    </article>
+  <% end %>
+
   <%= @inner_content %>
-</main>
+</div>

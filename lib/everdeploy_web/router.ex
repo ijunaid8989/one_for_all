@@ -14,14 +14,20 @@ defmodule EverdeployWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :auth do
+    plug EverdeployWeb.Authenticate
+  end
+
   scope "/", EverdeployWeb do
     pipe_through :browser
 
-    live "/", PageLive, :index
+    get "/startup", UsersController, :index
+    post "/startup", UsersController, :create
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", EverdeployWeb do
-  #   pipe_through :api
-  # end
+  scope "/v1", EverdeployWeb do
+    pipe_through [:browser, :auth]
+    
+    live "/dashboard", PageLive, :index
+  end
 end
