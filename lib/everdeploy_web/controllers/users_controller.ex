@@ -11,9 +11,10 @@ defmodule EverdeployWeb.UsersController do
   def create(conn, %{"user" => user_params} = params) do
     with "signup" <- params["method"] do
       case Accounts.create_user(user_params) do
-        {:ok, _user} ->
+        {:ok, user} ->
           conn
           |> put_flash(:info, "Welcome.")
+          |> put_session(:current_user, user)
           |> redirect(to: "/")
 
         {:error, %Ecto.Changeset{} = changeset} ->
@@ -23,7 +24,6 @@ defmodule EverdeployWeb.UsersController do
       _ ->
         case Accounts.change_user(%User{}, user_params) |> Map.put(:action, :update) do
           %Ecto.Changeset{valid?: false} = changeset ->
-            IO.inspect changeset
             render(conn, "index.html", changeset: changeset)
           %Ecto.Changeset{valid?: true} = changeset ->
             Accounts.check_user_creds(user_params)
@@ -31,9 +31,10 @@ defmodule EverdeployWeb.UsersController do
             |> case do
               "not_found" -> render(conn, "index.html", changeset: Ecto.Changeset.add_error(changeset, :email, "User not found."))
               false -> render(conn, "index.html", changeset: Ecto.Changeset.add_error(changeset, :password, "Password is not correct."))
-              _ ->
+              %User{} = user ->
                 conn
                 |> put_flash(:info, "Welcome.")
+                |> put_session(:current_user, user)
                 |> redirect(to: "/")
             end
         end

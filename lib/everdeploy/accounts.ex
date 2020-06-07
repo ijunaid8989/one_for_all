@@ -34,7 +34,11 @@ defmodule Everdeploy.Accounts do
     Repo.get_by(User, email: attrs["email"])
     |> case do
       nil -> "not_found"
-      user -> password_match?(attrs["password"], user)
+      user ->
+        case password_match?(attrs["password"], user) do
+          false -> false
+          true -> user
+        end
     end
   end
 
