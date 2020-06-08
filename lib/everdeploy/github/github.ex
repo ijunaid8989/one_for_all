@@ -7,11 +7,11 @@ defmodule Github do
   end
 
   def branch(repo, branch) do
-    get("/repos/evercam/#{repo}/branches/#{branch}") |> response()
+    get("/repos/evercam/#{repo}/branches/#{branch}") |> IO.inspect |> response()
   end
 
-  def commits_in_branch(repo, branch) do
-    get("/repos/evercam/#{repo}/commits?sha=#{branch}") |> response()
+  def commits_in_branch(repo, branch, since \\ DateTime.utc_now |> DateTime.add(-259200, :second) |> DateTime.to_iso8601) do
+    get("/repos/evercam/#{repo}/commits?sha=#{branch}&since=#{since}") |> response()
   end
 
   defp get(url) do
@@ -21,5 +21,5 @@ defmodule Github do
   defp response({:ok, %HTTPoison.Response{body: body, status_code: 200}}), do: body |> Jason.decode!
   defp response(_), do: []
 
-  
+
 end
