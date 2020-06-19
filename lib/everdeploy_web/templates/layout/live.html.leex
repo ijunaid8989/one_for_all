@@ -24,53 +24,7 @@
     </article>
   <% end %>
 
-  <nav class="navbar is-link is-fixed-top">
-    <div class="navbar-brand">
-      <a class="navbar-item" href="/v1/dashboard">
-        <img src="https://avatars2.githubusercontent.com/u/5575404">
-      </a>
-      <div class="navbar-burger burger" data-target="navMenuColorlink-example">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </div>
-
-    <div id="navMenuColorlink-example" class="navbar-menu">
-      <div class="navbar-start">
-        <a class="navbar-item" href="/v1/dashboard">
-          Home
-        </a>
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link" href="https://bulma.io/documentation/overview/start/">
-            Docs
-          </a>
-          <div class="navbar-dropdown">
-            <a class="navbar-item" href="https://bulma.io/documentation/overview/start/">
-              Overview
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div class="navbar-end">
-        <div class="navbar-item">
-          <div class="field is-grouped">
-            <p class="control">
-              <a class="button is-primary" href="/signout">
-                <span class="icon">
-                  <i class="fas fa-lock"></i>
-                </span>
-                <span>Sign out</span>
-              </a>
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </nav>
-
-  <div class="container is-fluid">
+  <div class="container is-fluid live-content">
     <%= @inner_content %>
   </div>
 </div>
