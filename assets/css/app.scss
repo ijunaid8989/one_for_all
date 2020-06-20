@@ -173,13 +173,14 @@ header h1 {
 }
 .cd-timeline-img img {
   display: block;
-  width: 24px;
-  height: 24px;
+  width: 40px;
+  height: 40px;
   position: relative;
-  left: 50%;
-  top: 50%;
+  border-radius: 50%;
+  left: 29%;
+  top: 27%;
   margin-left: -12px;
-  margin-top: -12px;
+  margin-top: -11px;
 }
 .cd-timeline-img.cd-picture {
   background: #75ce66;
@@ -199,6 +200,17 @@ header h1 {
     /* Force Hardware Acceleration in WebKit */
     -webkit-transform: translateZ(0);
     -webkit-backface-visibility: hidden;
+  }
+  .cd-timeline-img img {
+    display: block;
+    width: 60px;
+    height: 60px;
+    position: relative;
+    border-radius: 50%;
+    left: 19%;
+    top: 20%;
+    margin-left: -12px;
+    margin-top: -12px;
   }
   .cssanimations .cd-timeline-img.is-hidden {
     visibility: hidden;
@@ -297,6 +309,7 @@ header h1 {
   border-radius: 0.25em;
 }
 .no-touch .cd-timeline-content .cd-read-more:hover {
+  cursor: pointer;
   background-color: #bac4cb;
 }
 .cd-timeline-content .cd-date {
