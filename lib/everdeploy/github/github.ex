@@ -7,7 +7,7 @@ defmodule Github do
   end
 
   def branch(repo, branch) do
-    get("/repos/evercam/#{repo}/branches/#{branch}") |> response()
+    get("/repos/evercam/#{repo}/branches/#{branch}") |> response() |> parse_detailed_branch()
   end
 
   def commits_in_branch(repo, branch, since \\ DateTime.utc_now |> DateTime.add(-259200, :second) |> DateTime.to_iso8601) do
@@ -30,6 +30,38 @@ defmodule Github do
     %{
       sha: sha,
       branch_name: branch_name
+    }
+  end
+
+  defp parse_detailed_branch(%{
+    "commit" => %{
+      "author" => %{
+        "avatar_url" => avatar_url,
+        "login" => login,
+        "type" => type,
+      },
+      "commit" => %{
+        "author" => %{
+          "date" => commit_date,
+          "email" => commiter_email,
+          "name" => commiter_name
+        },
+        "message" => commit_message
+      },
+      "sha" => sha,
+    },
+    "name" => branch_name
+  }) do
+    %{
+      avatar_url: avatar_url,
+      login: login,
+      type: type,
+      commit_date: commit_date,
+      commiter_email: commiter_email,
+      commiter_name: commiter_name,
+      commit_message: commit_message,
+      branch_name: branch_name,
+      sha: sha
     }
   end
 
