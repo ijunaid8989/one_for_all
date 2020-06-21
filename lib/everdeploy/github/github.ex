@@ -1,6 +1,4 @@
 defmodule Github do
-  @github "https://api.github.com"
-  @headers ["Authorization": "token #{System.get_env["GITHUB_TOKEN"]}", "Accept": "application/vnd.github.v3+json"]
 
   def branches(repo) do
     get("/repos/evercam/#{repo}/branches") |> response() |> Enum.map(&parse_branch_info(&1))
@@ -15,7 +13,7 @@ defmodule Github do
   end
 
   defp get(url) do
-    HTTPoison.get(@github <> url, @headers, hackney: [])
+    HTTPoison.get("https://api.github.com" <> url, get_headers(), hackney: [])
   end
 
   defp response({:ok, %HTTPoison.Response{body: body, status_code: 200}}), do: body |> Jason.decode!
@@ -31,6 +29,10 @@ defmodule Github do
       sha: sha,
       branch_name: branch_name
     }
+  end
+
+  defp get_headers() do
+    ["Authorization": "token #{System.get_env["GITHUB_TOKEN"]}", "Accept": "application/vnd.github.v3+json"]
   end
 
   defp parse_detailed_branch(%{
@@ -56,7 +58,7 @@ defmodule Github do
       avatar_url: avatar_url,
       login: login,
       type: type,
-      commit_date: commit_date,
+      commit_date: Calendar.DateTime.Parse.rfc3339_utc(commit_date) |> elem(1) |> Calendar.Strftime.strftime("%A %Y-%m-%e %H:%M:%S") |> elem(1),
       commiter_email: commiter_email,
       commiter_name: commiter_name,
       commit_message: commit_message,
