@@ -48,6 +48,7 @@ defmodule Everdeploy.MixProject do
       {:bcrypt_elixir, "~> 2.0"},
       {:plug_cowboy, "~> 2.0"},
       {:httpoison, "~> 1.6"},
+      {:porcelain, "~> 2.0"},
       {:calendar, "~> 1.0"},
       {:dotenv, "~> 3.0.0", only: [:dev, :test]}
     ]
