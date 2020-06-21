@@ -1,6 +1,6 @@
 <section id="cd-timeline" class="cd-container">
   <%= if @loading, do: "loading", else: "" %> 
-    <%= for branch <- @evercam_server_branches do %>
+  <%= for branch <- @evercam_server_branches do %>
     <%= live_component @socket, Server, id: branch.sha, branch: branch %>
   <% end %>
-</section> <!-- cd-timeline -->
+</section>
